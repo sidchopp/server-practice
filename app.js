@@ -31,7 +31,10 @@ app.get('/people', (req, res) => {
 //POST
 app.post('/login', (req, res) => {
   const { name } = req.body
-  res.status(200).send(name)
+  if (!name) {
+    return res.send(400).json({ success: false, msg: 'Please provide a name value' })
+  }
+  res.status(201).send({ success: true, person: [...people, { name }] })
 })
 
 //PUT for update
